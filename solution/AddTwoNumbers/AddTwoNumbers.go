@@ -1,6 +1,8 @@
 package leetcode
 
-import "github.com/dummyTiger/LeetCode-Go/utils"
+import (
+	"github.com/dummyTiger/LeetCode-Go/utils"
+)
 
 func addTwoNumbers(l1 *utils.ListNode, l2 *utils.ListNode) *utils.ListNode {
 	head := &utils.ListNode{Val: 0}
@@ -23,5 +25,6 @@ func addTwoNumbers(l1 *utils.ListNode, l2 *utils.ListNode) *utils.ListNode {
 		current = current.Next
 		carry = sum / 10
 	}
+	
 	return head.Next
 }

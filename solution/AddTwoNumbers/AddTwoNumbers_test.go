@@ -1,7 +1,7 @@
 package leetcode
 
 import (
-	"LeetCode-Go/utils"
+	"github.com/dummyTiger/LeetCode-Go/utils"
 	"testing"
 )
 
@@ -22,6 +22,8 @@ func TestAddTwoNumbers(t *testing.T) {
 		current = current.Next
 	}
 
+	current = head2
+
 	for idx, i := range array2 {
 
 		if idx == 0 {
@@ -38,7 +40,8 @@ func TestAddTwoNumbers(t *testing.T) {
 
 	current = numbers
 
-	for i := 0; current != nil && i < len(result); {
+	for i := 0; current != nil && i < len(result); i++ {
+		t.Log(current.Val)
 		if current.Val != result[i] {
 			t.Errorf("result not eaquel")
 		}
