@@ -1,6 +1,6 @@
 package leetcode
 
-//todo unsolved
+//todo unsolved timeout
 func maxArea(height []int) int {
 	maxArea := 0
 	for i := 0; i <= len(height)-2; i++ {
