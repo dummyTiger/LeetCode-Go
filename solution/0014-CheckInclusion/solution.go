@@ -1,46 +1,36 @@
 package _014_CheckInclusion
 
-//todo
+//给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的某个变位词。
+//
+//换句话说，第一个字符串的排列之一是第二个字符串的 子串 。
 func checkInclusion(s1 string, s2 string) bool {
 	if len(s1) > len(s2) {
 		return false
 	}
-	hash := generateHash(s1)
-
-	exist := true
-
-	for i := 0; i < len(s2)-len(s1)+1; i++ {
-		exist = true
-		for j := 0; j < len(s1); j++ {
-			v := s2[i+j]
-			if _, ok := hash[int32(v)]; ok {
-				hash[int32(v)] = hash[int32(v)] - 1
-			}
-		}
-		for _, v := range hash {
-			if v != 0 {
-				exist = false
-				break
-			}
-		}
-
-		if exist {
+	counts := [26]int{}
+	for i := 0; i < len(s1); i++ {
+		counts[s1[i]-'a']++
+		counts[s2[i]-'a']--
+	}
+	if isAllZero(counts) {
+		return true
+	}
+	for i := len(s1); i < len(s2); i++ {
+		counts[s2[i]-'a']--
+		counts[s2[i-len(s1)]-'a']++
+		if isAllZero(counts) {
 			return true
 		}
-		hash = generateHash(s1)
 	}
+	return false
 
-	return exist
 }
 
-func generateHash(s1 string) map[int32]int {
-	hash := make(map[int32]int)
-	for _, v := range s1 {
-		if _, ok := hash[v]; ok {
-			hash[v] = hash[v] + 1
-		} else {
-			hash[v] = 1
+func isAllZero(arr [26]int) bool {
+	for _, i := range arr {
+		if i != 0 {
+			return false
 		}
 	}
-	return hash
+	return true
 }
