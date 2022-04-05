@@ -1,28 +1,30 @@
 package leetcode
 
-//todo unsolved timeout
 func maxArea(height []int) int {
 	maxArea := 0
-	for i := 0; i <= len(height)-2; i++ {
-		if height[i] == 0 {
-			continue
+	i, j := 0, len(height)-1
+	for i < j {
+
+		w := getMinValue(height[i], height[j])
+		area := w * (j - i)
+
+		if area > maxArea {
+			maxArea = area
 		}
-		for j := i + 1; j <= len(height)-1; j++ {
-			if height[j] == 0 {
-				continue
-			}
-			w := j - i
-			h := 0
-			if height[i] < height[j] {
-				h = height[i]
-			} else {
-				h = height[j]
-			}
-			area := w * h
-			if area > maxArea {
-				maxArea = area
-			}
+		if height[i] < height[j] {
+			i++
+		} else {
+			j--
 		}
+
 	}
 	return maxArea
+}
+
+func getMinValue(i, j int) int {
+	if i > j {
+		return j
+	} else {
+		return i
+	}
 }

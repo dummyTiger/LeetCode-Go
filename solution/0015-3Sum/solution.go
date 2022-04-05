@@ -8,30 +8,33 @@ func threeSum(nums []int) [][]int {
 		return res
 	}
 	sort.Ints(nums)
-	for p, i := range nums {
-		n := make([]int, 0)
-		n = append(n, nums[:p]...)
-		n = append(n, nums[p+1:]...)
-		result := helper(n, 0-i)
-		if len(result) != 0 {
-			result = append(result, i)
-			res = append(res, result)
+	i := 0
+	for i < len(nums)-2 {
+		helper(nums, i, &res)
+		temp := nums[i]
+		for i < len(nums) && nums[i] == temp {
+			i++
 		}
 	}
 
 	return res
 }
 
-func helper(input []int, target int) []int {
-	for i, j := 0, len(input)-1; i < j; {
-		sum := input[i] + input[j]
-		if sum == target {
-			return []int{input[i], input[j]}
-		} else if sum < target {
-			i = i + 1
+func helper(input []int, i int, res *[][]int) {
+	j := i + 1
+	k := len(input) - 1
+	for j < k {
+		sum := input[i] + input[j] + input[k]
+		if sum == 0 {
+			*res = append(*res, []int{input[i], input[j], input[k]})
+			temp := input[j]
+			for j < k && input[j] == temp {
+				j++
+			}
+		} else if sum < 0 {
+			j++
 		} else {
-			j = j - 1
+			k--
 		}
 	}
-	return []int{}
 }

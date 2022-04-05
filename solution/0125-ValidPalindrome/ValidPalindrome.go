@@ -2,17 +2,18 @@ package leetcode
 
 import (
 	"strings"
+	"unicode"
 )
 
 func isPalindrome(s string) bool {
 	flag := true
 	s = strings.ToUpper(s)
 	for i, j := 0, len(s)-1; i < j; {
-		if !((s[i] >= 48 && s[i] <= 57) || (s[i] >= 65 && s[i] <= 90)) {
+		if !IsLetterOrNumber(rune(s[i])) {
 			i++
 			continue
 		}
-		if !((s[j] >= 48 && s[j] <= 57) || (s[j] >= 65 && s[j] <= 90)) {
+		if !IsLetterOrNumber(rune(s[j])) {
 			j--
 			continue
 		}
@@ -28,4 +29,7 @@ func isPalindrome(s string) bool {
 	}
 
 	return flag
+}
+func IsLetterOrNumber(v rune) bool {
+	return unicode.IsNumber(v) || unicode.IsLetter(v)
 }
